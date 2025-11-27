@@ -152,4 +152,53 @@ All colors MUST be HSL.
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
            bg-gradient-to-r from-primary/10 to-gold/10 text-primary border border-primary/20;
   }
+
+  @keyframes cart-bounce {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2) rotate(-5deg); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.1) rotate(5deg); }
+  }
+
+  @keyframes add-to-cart {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-cart-bounce {
+    animation: cart-bounce 0.5s cubic-bezier(0.36, 0, 0.66, -0.56);
+  }
+
+  .animate-add-to-cart {
+    animation: add-to-cart 0.3s ease-out;
+  }
+
+  .btn-ripple {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  .btn-ripple:active::after {
+    animation: ripple 0.6s ease-out;
+  }
 }

@@ -37,15 +37,23 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button 
               size="lg" 
-              className="btn-festival text-base md:text-lg h-12 px-8"
+              className="btn-festival text-base md:text-lg h-12 px-8 group"
+              onClick={() => {
+                const productsSection = document.getElementById('products');
+                productsSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
             >
               Shop Now
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               variant="outline" 
               size="lg"
-              className="text-base md:text-lg h-12 px-8 border-2 border-primary hover:bg-primary/10"
+              className="text-base md:text-lg h-12 px-8 border-2 border-primary hover:bg-primary/10 hover:scale-105 transition-all"
+              onClick={() => {
+                const productsSection = document.getElementById('products');
+                productsSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
             >
               Explore Categories
             </Button>
