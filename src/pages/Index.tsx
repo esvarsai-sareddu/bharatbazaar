@@ -12,7 +12,7 @@ const Index = () => {
       <footer className="border-t border-border/40 bg-muted/30 py-8 mt-20">
         <div className="container px-4 text-center">
           <p className="text-muted-foreground">
-            © 2024 BharatBazaar. Made with ❤️ in India
+            © 2025 BharatBazaar. Made with ❤️ in India
           </p>
         </div>
       </footer>
