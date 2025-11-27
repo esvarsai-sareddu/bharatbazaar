@@ -12,7 +12,7 @@ export const ProductGrid = () => {
       : products.filter((product) => product.category === selectedCategory);
 
   return (
-    <section className="py-12 md:py-20">
+    <section id="products" className="py-12 md:py-20 scroll-mt-16">
       <div className="container px-4">
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-5xl font-display font-bold">

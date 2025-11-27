@@ -1,8 +1,9 @@
-import { Star, ShoppingCart } from "lucide-react";
+import { Star, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Product } from "@/types/product";
 import { useCart } from "@/contexts/CartContext";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -10,6 +11,19 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleAddToCart = () => {
+    setIsAdding(true);
+    addToCart(product);
+    
+    setTimeout(() => {
+      setIsAdding(false);
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+    }, 300);
+  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-IN", {
@@ -61,11 +75,21 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
       <CardFooter className="p-4 pt-0">
         <Button
-          className="w-full btn-festival"
-          onClick={() => addToCart(product)}
+          className={`w-full btn-festival btn-ripple transition-all ${isAdding ? 'animate-add-to-cart' : ''} ${showSuccess ? 'bg-accent hover:bg-accent' : ''}`}
+          onClick={handleAddToCart}
+          disabled={isAdding}
         >
-          <ShoppingCart className="mr-2 h-4 w-4" />
-          Add to Cart
+          {showSuccess ? (
+            <>
+              <Check className="mr-2 h-4 w-4 animate-in zoom-in" />
+              Added!
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Add to Cart
+            </>
+          )}
         </Button>
       </CardFooter>
     </Card>

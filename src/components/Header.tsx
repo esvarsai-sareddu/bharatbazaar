@@ -3,9 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/contexts/CartContext";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const { totalItems } = useCart();
+  const [cartAnimation, setCartAnimation] = useState(false);
+  const [prevTotal, setPrevTotal] = useState(0);
+
+  useEffect(() => {
+    if (totalItems > prevTotal) {
+      setCartAnimation(true);
+      setTimeout(() => setCartAnimation(false), 500);
+    }
+    setPrevTotal(totalItems);
+  }, [totalItems]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -35,10 +46,14 @@ export const Header = () => {
 
         <div className="flex items-center gap-2">
           <Link to="/cart">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={`relative transition-all hover:scale-110 ${cartAnimation ? 'animate-cart-bounce' : ''}`}
+            >
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-cta text-cta-foreground text-xs flex items-center justify-center font-semibold">
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-cta text-cta-foreground text-xs flex items-center justify-center font-semibold shadow-glow animate-in zoom-in duration-300">
                   {totalItems}
                 </span>
               )}
